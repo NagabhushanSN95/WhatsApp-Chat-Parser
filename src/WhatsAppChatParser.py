@@ -2,17 +2,17 @@
 # 
 # Author: Nagabhushan S N
 # Date: 22/05/21
+
+import datetime
 import re
 import time
-import datetime
 import traceback
+from pathlib import Path
 from typing import List
 
-import simplejson
 import pdfkit
-
-from pathlib import Path
-from tqdm import tqdm
+import requests
+from bs4 import BeautifulSoup
 from urlextract import URLExtract
 
 this_filepath = Path(__file__)
@@ -31,8 +31,7 @@ class ChatParser:
         self.verbose_log = verbose_log
         self.url_extractor = URLExtract()
         self.pdfkit_options = {
-            'images': '',
-            'no-stop-slow-scripts': '',
+            'javascript-delay': '10000',  # Increase this value if images are not loading properly
         }
         return
 
@@ -65,7 +64,15 @@ class ChatParser:
         urls = self.url_extractor.find_urls(message)
         assert len(urls) == 1
         url = urls[0]
-        output_path = self.output_dirpath / f'{num}.pdf'
+
+        # Get title
+        reqs = requests.get(url)
+        soup = BeautifulSoup(reqs.text, 'html.parser')
+        title = soup.find_all('title')[0].text
+        title = title.replace(':', '-')
+        output_path = self.output_dirpath / f'{title}.pdf'
+        if output_path.exists():
+            raise RuntimeError(f'A file with name "{title}" already exists!')
 
         # PDF kit
         pdfkit.from_url(url, output_path, options=self.pdfkit_options)
