@@ -1,0 +1,57 @@
+name: 15_WhatsAppChatParser
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - beautifulsoup4=4.9.3=pyhb0f4dca_0
+  - brotlipy=0.7.0=py38h8df0ef7_1001
+  - bs4=4.9.3=0
+  - ca-certificates=2020.12.5=ha878542_0
+  - certifi=2020.12.5=py38h578d9bd_1
+  - cffi=1.14.5=py38h261ae71_0
+  - chardet=4.0.0=py38h578d9bd_1
+  - colorama=0.4.4=pyh9f0ad1d_0
+  - cryptography=3.4.7=py38ha5dfef3_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - ncurses=6.2=he6710b0_1
+  - openssl=1.1.1k=h27cfd23_0
+  - pip=21.1.1=py38h06a4308_0
+  - pycparser=2.20=pyh9f0ad1d_2
+  - pyopenssl=20.0.1=pyhd8ed1ab_0
+  - pysocks=1.7.1=py38h578d9bd_3
+  - python=3.8.10=hdb3f193_7
+  - python_abi=3.8=1_cp38
+  - readline=8.1=h27cfd23_0
+  - requests=2.25.1=pyhd3deb0d_0
+  - setuptools=52.0.0=py38h06a4308_0
+  - simplejson=3.17.2=py38h1e0a361_1
+  - six=1.16.0=pyh6c4a22f_0
+  - soupsieve=2.0.1=py_1
+  - sqlite=3.35.4=hdfb4753_0
+  - tk=8.6.10=hbc83047_0
+  - tqdm=4.60.0=pyhd8ed1ab_0
+  - urllib3=1.26.4=pyhd8ed1ab_0
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - appdirs==1.4.4
+    - cairocffi==1.2.0
+    - cairosvg==2.5.2
+    - cssselect2==0.4.1
+    - defusedxml==0.7.1
+    - filelock==3.0.12
+    - html5lib==1.1
+    - idna==3.1
+    - pdfkit==0.6.1
+    - pillow==8.2.0
+    - pyphen==0.10.0
+    - tinycss2==1.1.0
+    - uritools==3.0.2
+    - urlextract==1.2.0
+    - webencodings==0.5.1
+prefix: /home/nagabhushan/anaconda3/envs/15_WhatsAppChatParser

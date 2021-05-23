@@ -14,6 +14,8 @@ import pdfkit
 import requests
 from bs4 import BeautifulSoup
 from urlextract import URLExtract
+from colorama import Fore
+from colorama import Style
 
 this_filepath = Path(__file__)
 this_filename = this_filepath.stem
@@ -31,7 +33,7 @@ class ChatParser:
         self.verbose_log = verbose_log
         self.url_extractor = URLExtract()
         self.pdfkit_options = {
-            'javascript-delay': '10000',  # Increase this value if images are not loading properly
+            'javascript-delay': '30000',  # Increase this value if images are not loading properly
         }
         return
 
@@ -48,8 +50,8 @@ class ChatParser:
 
     def save_messages(self):
         for i, message in enumerate(self.messages):
-            if 'quora.com' in message:
-                self.parse_quora_message(message, i)
+            if ('quora.com' in message) or ('qr.ae' in message):
+                self.parse_quora_message(message)
             elif ('Messages and calls are end-to-end encrypted' in message) or \
                     ('You created a broadcast list' in message) or \
                     ('added to the list' in message) or \
@@ -57,10 +59,10 @@ class ChatParser:
                     ('<Media omitted>' in message):
                 pass
             else:
-                print(f'Unable to parse message: {message}')
+                print(f'{Fore.RED}Unable to parse message: {message}{Style.RESET_ALL}')
         return
 
-    def parse_quora_message(self, message, num):
+    def parse_quora_message(self, message):
         urls = self.url_extractor.find_urls(message)
         assert len(urls) == 1
         url = urls[0]
@@ -69,13 +71,19 @@ class ChatParser:
         reqs = requests.get(url)
         soup = BeautifulSoup(reqs.text, 'html.parser')
         title = soup.find_all('title')[0].text
-        title = title.replace(':', '-')
+        title = title.replace(':', '-').replace('/', '')[:251]
         output_path = self.output_dirpath / f'{title}.pdf'
         if output_path.exists():
-            raise RuntimeError(f'A file with name "{title}" already exists!')
+            print(f'{Fore.RED}A file with name "{title}" already exists!')
+            print(message)
+            print(url)
+            print(Style.RESET_ALL)
+            return
+        # output_path.touch()
 
         # PDF kit
         pdfkit.from_url(url, output_path, options=self.pdfkit_options)
+        print(f'Saved: {output_path.name}')
         return
 
 

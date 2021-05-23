@@ -1,0 +1,11 @@
+name: 15_WhatsAppChatParser
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - tqdm
+  - simplejson
+  - requests
+  - bs4
+  - colorama
+prefix: /home/nagabhushan/anaconda3/envs/15_WhatsAppChatParser
