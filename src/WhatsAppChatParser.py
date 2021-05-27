@@ -83,7 +83,7 @@ class ChatParser:
 
         # PDF kit
         pdfkit.from_url(url, output_path, options=self.pdfkit_options)
-        print(f'Saved: {output_path.name}')
+        print(f'Saved: {output_path.name} at {datetime.datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")}')
         return
 
 
